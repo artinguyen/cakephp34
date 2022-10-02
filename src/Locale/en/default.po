@@ -1,0 +1,8 @@
+msgid "Add"
+msgstr "Add"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "User activity"
+msgstr "User activity"

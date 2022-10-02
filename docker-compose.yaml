@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+    backend:
+        container_name: php_httpd
+        build: ./php
+        ports:
+            - 9999:80
+        depends_on:
+            - db
+        volumes:
+            - ./:/var/www/html/
+    db:
+        container_name: mysql
+        image: mysql:5.7
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: 235235
+        ports:
+            - "9906:3306"
+
+    adminer:
+        container_name: adminer
+        image: adminer
+        restart: always
+        ports:
+          - 8080:8080
