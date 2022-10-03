@@ -97,9 +97,39 @@ class ReportsController extends AppController
        
     }
 
-    public function valid_form()
+    public function showMessageForm()
     {
-
+//articlesTable = $this->Message->get('Messages');
+// $this->Messages->newEntity();
+// $article->name = 'A New Article';
+// $article->banner_image = 'This is the body of the article';
+// $this->Messages->save($article);
+       $this->render('message');
+        // $article = $this->Messages->newEntity(['name' => 'test', 'banner_image' => '', 'banner_click' => '']);
+        // $this->Messages->save($article);
     }
+    public function saveMessage() {
+        //dd('1');
+        if ($this->request->is('post')) {
+// $articleTbl = $this->Messages->newEntity();
+// $article->name = 'A New Article';
+// $article->banner_image = 'This is the body of the article';
+// $articleTbl->save($article);
+            //$article = $this->Articles->patchEntity($article, $this->request->getData());
+            // $article = $this->Messages->newEntity($this->request->getData());
+            // dd('1');
+           
+            $article = $this->Messages->newEntity(['name' => 'test', 'banner_image' => '', 'banner_click' => '']);
+             if ($article->errors()) {
+//                 $article->setErrors([
+//     'password' => 'Password is required',
+//     'username' => 'Username is required'
+// ]);
 
+                //$errors[] = $article->getError('banner_image');
+                $this->response->body(json_encode($article->getError('banner_image')['_empty']));
+                return $this->response;
+            }
+        }
+    }
 }
