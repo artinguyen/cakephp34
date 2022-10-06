@@ -132,4 +132,35 @@ class ReportsController extends AppController
             }
         }
     }
+
+    public function getMonitorList() {
+        function hash256($input) {
+    $hash = hash("sha256", utf8_encode($input));
+    $output = "";
+    foreach(str_split($hash, 2) as $key => $value) {
+        if (strpos($value, "0") === 0) {
+            $output .= str_replace("0", "", $value);
+        } else {
+            $output .= $value;
+        }
+    }
+    return $output;
+}
+
+echo hash256("test");
+        //echo $this->request->method();
+        //dd( $this->request->data);
+        //echo $this->request->getData('monitor_id');
+        //die($this->request->input('json_decode', true));
+        if($this->request->is('get')){
+            $monitor_id = $this->request->getData('monitor_id');
+            $token = $this->request->getData('token');
+        //response if post data or form data was not passed
+        $response = array('status'=>'failed', 'message'=>'Please provide form data');
+    }
+        
+            $this->response->type('application/json');
+            $this->response->body(json_encode($response));
+            return $this->response;
+    }
 }
