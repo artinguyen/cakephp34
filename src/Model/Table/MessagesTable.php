@@ -3,38 +3,35 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 use Cake\ORM\Query;
-
+use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 class MessagesTable extends Table
 {
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->notEmpty('template_name', 'Please fill this field');
+        $validator
+            ->notEmpty('title', 'Please fill this field');
+        return $validator;
+    }
+
     public function initialize(array $config)
     {
-        //$this->addBehavior('Sluggable');
-        // $this->addBehavior('Sluggable', [
-        //     'events' => [
-        //         'Model.beforeSave' => [
-        //             'created_at' => 'new',
-        //             'updated_at' => 'always'
-        //         ]
-        //     ]
-        // ]);
-        $this->hasMany('Notifications');
-            //->setForeignKey('messages_id')
-            //->setDependent(true);
+
     }
 
-    public function findType(Query $query, array $options)
-    {
-        $query->where([
-            $this->alias() . '.type' => 1
-        ])->select(['id', 'name']);
-        return $query;
+    public function deleteMessage($id) {
+        //die($id);
+        $table = TableRegistry::get('Messages');
+        $message= $this->get($id);
+        //die($message);
+        $message->type = 10;
+        return $table->save($message);
     }
 
-    public function getMessageById($id)
+    public function getAll() 
     {
-        return $this->find()->where([
-            'id' => $id
-        ])->select(['id', 'name','deleted_at'])->first();
-        //return $query;
+        return $this->find('all');
     }
 }

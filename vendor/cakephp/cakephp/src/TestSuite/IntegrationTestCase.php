@@ -418,6 +418,7 @@ abstract class IntegrationTestCase extends TestCase
         try {
             $request = $this->_buildRequest($url, $method, $data);
             $response = $dispatcher->execute($request);
+            //dd($response);
             $this->_requestSession = $request['session'];
             $this->_response = $response;
         } catch (PHPUnit_Exception $e) {

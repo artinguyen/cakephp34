@@ -16,8 +16,18 @@
         <testsuite name="App Test Suite">
             <directory>./tests/TestCase</directory>
         </testsuite>
+        <testsuite name="demo">
+            <directory>./tests/TestCase/</directory>
+        </testsuite>
+
+        <!-- Add your plugin suites -->
+        <testsuite name="forum">
+            <directory>./plugins/Forum/tests/TestCase/</directory>
+        </testsuite>
         <!-- Add plugin test suites here. -->
     </testsuites>
+
+    
 
     <!-- Setup a listener for fixtures -->
     <listeners>

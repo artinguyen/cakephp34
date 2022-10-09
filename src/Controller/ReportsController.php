@@ -23,7 +23,7 @@ class ReportsController extends AppController
         
         $this->loadComponent('Paginator');
         $this->loadComponent('Flash'); // Include the FlashComponent
-        
+        $this->loadComponent('RequestHandler');
         $this->loadModel('Articles');
         $this->loadModel('Messages');
         $this->loadModel('Conditions');
@@ -147,7 +147,7 @@ class ReportsController extends AppController
     return $output;
 }
 
-echo hash256("test");
+
         //echo $this->request->method();
         //dd( $this->request->data);
         //echo $this->request->getData('monitor_id');
@@ -158,9 +158,14 @@ echo hash256("test");
         //response if post data or form data was not passed
         $response = array('status'=>'failed', 'message'=>'Please provide form data');
     }
+     $this->set([
+            'recipes' => $response,
+            '_serialize' => ['recipes']
+        ]);
+     
         
-            $this->response->type('application/json');
-            $this->response->body(json_encode($response));
-            return $this->response;
+            // $this->response->type('application/json');
+            // $this->response->body(json_encode($response));
+            // return $this->response;
     }
 }

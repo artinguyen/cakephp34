@@ -177,17 +177,36 @@ return [
      * 'YourTransport.php', where 'Your' is the name of the transport.
      */
     'EmailTransport' => [
+        // 'default' => [
+        //     'className' => 'Smtp',
+        //     // The following keys are used in SMTP transports
+        //     'host' => 'smtp.mailtrap.io',
+        //     'port' => 587,
+        //     'timeout' => 30,
+        //     'username' => 'e3480c90ee72b1',
+        //     'password' => 'e2cef0b6f3dfcb',
+        //     'client' => null,
+        //     'tls' => false,
+        //     'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+        // ],
         'default' => [
-            'className' => 'Mail',
+            'className' => 'Smtp',
             // The following keys are used in SMTP transports
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
             'timeout' => 30,
-            'username' => 'user',
-            'password' => 'secret',
-            'client' => null,
-            'tls' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'username' => 'nguyenthean.hg@gmail.com',
+            'password' => 'ddmkmrmozhblecqn',
+            //'client' => null,
+            'tls' => true,
+            //'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'context' => [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+          ]
         ],
     ],
 
@@ -203,7 +222,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
+            //'from' => 'nguyenthean.hg@gmail.com',
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],
@@ -271,7 +290,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => '235235',
-            'database' => 'cake_test',
+            'database' => 'test_cakephp',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'cacheMetadata' => true,

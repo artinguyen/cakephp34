@@ -75,6 +75,15 @@ use Cake\Utility\Security;
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
+    Configure::load('env', 'default');
+    //Configure::load('enum','default');
+    $env = Configure::read('environment');
+    if(!empty($env)) {
+        Configure::load("environment/${env}", 'default');
+    }
+    //phpinfo();die();
+    $a = 1;
+    $b = 2;
 } catch (\Exception $e) {
     exit($e->getMessage() . "\n");
 }
@@ -128,6 +137,11 @@ if ($isCli) {
 if ($isCli) {
     require __DIR__ . '/bootstrap_cli.php';
 }
+
+/*
+ * Include the CLI bootstrap overrides.
+ */
+require __DIR__ . '/DaysOfWeek.php';
 
 /*
  * Set the full base URL.

@@ -16,9 +16,41 @@ class ArticlesController extends AppController
         
         $this->loadComponent('Paginator');
         $this->loadComponent('Flash'); // Include the FlashComponent
+        //$this->loadModel('Messages');
     }
 
-    public function index()
+    public $helpers = ['Form', 'Html'];
+
+    public function index($short = null)
+    {
+        // if ($this->request->is('post')) {
+        //     $article = $this->Articles->newEntity($this->request->getData());
+        //     if ($this->Articles->save($article)) {
+        //         // Redirect as per PRG pattern
+        //         return $this->redirect(['action' => 'index']);
+        //     }
+        // }
+        // if (!empty($short)) {
+        //     $result = $this->Articles->find('all', [
+        //         'fields' => ['id', 'title']
+        //     ]);
+        // } else {
+        //     $result = $this->Articles->find();
+        // }
+
+        // $this->set([
+        //     'title' => 'Articles',
+        //     'articles' => $result
+        // ]);
+        //$query = TableRegistry::get('Messages')->find()->toArray();
+        //var_dump($query);die();
+        // $this->set([
+        //     'title' => 'Articles',
+        //     'articles' => $query
+        // ]);
+    }
+
+    public function index1()
     {
         // $article = $this->Articles->find();
         // foreach($article as $a) {
@@ -81,7 +113,7 @@ $this->Articles->save($article);
 
             // Hardcoding the user_id is temporary, and will be removed later
             // when we build authentication out.
-            $article->user_id = 1;
+            $article->title = 'Test';
 
             if ($this->Articles->save($article)) {
                 $this->Flash->success(__('Your article has been saved.'));
@@ -89,7 +121,16 @@ $this->Articles->save($article);
             }
             $this->Flash->error(__('Unable to add your article.'));
         }
-        $this->set('article', $article);
+        //$this->set('article', $article);
+
+         $response = array('status'=>'failed', 'message'=>'Please provide form data');
+    
+
+     
+        
+            $this->response->type('application/json');
+            $this->response->body(json_encode($response));
+            return $this->response;
     }
     public function change() {
         //dd($id);
