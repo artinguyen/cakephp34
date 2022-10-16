@@ -8,6 +8,9 @@ use Cake\ORM\TableRegistry;
 // Prior to 3.5 use I18n::locale()
 use Cake\Http\ServerRequest;
 use Cake\Datasource\ConnectionManager;
+use Aws\Sns\SnsClient; 
+use Aws\Exception\AwsException;
+
 class ReportsController extends AppController
 {
     public $paginate = [
@@ -30,8 +33,71 @@ class ReportsController extends AppController
         $this->loadModel('Notifications');
     }
 
+    public function multi() {
+       // var_dump($this->request->getParam('action'));
+        //var_dump($this->request->getParam('lang'));
+        //die();
+        
+
+        
+
+        // Configuration parameters
+// $config = [
+//     'region'  => 'us-east-1',
+//     'version' => 'latest',
+//         'credentials' => [
+//         'key'    => 'AKIA3ONQNVM5XW5G5NRA',
+//         'secret' => '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',
+//     ],
+// ];
+
+// // SDK object 
+// $sdk = new Aws\Sdk($config);
+$topicname = 'myTopic1';
+
+
+$SnSclient = new SnsClient([
+    'region' => 'us-east-1',
+    'version' => '2010-03-31',
+    'version' => 'latest',
+        'credentials' => [
+        'key'    => 'AKIA3ONQNVM5XW5G5NRA',
+        'secret' => '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',
+    ],
+]);
+
+
+try {
+    // $result = $SnSclient->createTopic([
+    //     'Name' => $topicname,
+    // ]);
+    // var_dump($result);die();
+    // $result = $client->createPlatformEndpoint([
+    // 'PlatformApplicationArn' => 'arn:aws:sns:us-east-1:786885880635:endpoint/GCM/web_push/e8ea63b7-8466-39cd-be5c-3669d28d898b', // REQUIRED
+    // 'Token' => 'c09r6n_XXHeDVrW-HRYrfK:APA91bH8aKpZpVpng4UHrh6JpN9Hdelsj6n4Ha1Rbr1J1JakvjR9-2mHGvEs8mEQlLdHcF7FnhTCCLxeKgennkWdMwHcfCDsGU_mfhjtNq9FOXXPyACmaBzjyKqpfgT1hrCKJ0e_cfno', // REQUIRED
+    // ]);
+
+    //$result = $client->listPlatformApplications();
+    $result = $client->createPlatformApplication([
+    'Attributes' => ['<string>']
+    'Name' => 'Mobile Push', // REQUIRED
+    'Platform' => 'GMC', // REQUIRED
+    ]);
+    var_dump($result);die();
+
+} catch (AwsException $e) {
+    // output error message if fails
+    error_log($e->getMessage());
+} 
+
+
+
+    }
     public function index()
     {
+        var_dump($this->request->getParam('action'));
+        //var_dump($this->request->getParam('lang'));
+        die();
         TableRegistry::config('Mess', [
             'className' => 'App\Model\Table\NotificationsTable',
             'table' => 'notifications',

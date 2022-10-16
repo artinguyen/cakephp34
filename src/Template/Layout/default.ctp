@@ -109,6 +109,12 @@
                     <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
                 </ul>
             </li>
+            <select onchange="myFunction(event)">
+              <option value="en" >En</option>
+              <option value="zh">Zh</option>
+              <option value="ja">Zh</option>
+              <option value="en" >En</option>
+            </select>
         </ul>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -213,7 +219,8 @@ $(document).ready(function(){
             'banner' : $('input[name="banner"]').val()
         }
         console.log(el);
-        $.ajax("<?= Router::url(['_name' => 'create_message']) ?>", {
+        //Router::url(['_name' => 'create_message'])
+        $.ajax("", {
         type: 'POST',  // http method
         data: el,  // data to submit
         success: function (data, status, xhr) {
@@ -373,6 +380,17 @@ function closeAllSelect(elmnt) {
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
 //document.addEventListener("click", closeAllSelect);
+</script>
+<script>
+function myFunction(event) {
+  alert('<?= __("Popup Notification") ?>');
+  let lang = event.target.value;
+  var link = window.location.href;
+  link = link.replace(/(zh|en|ja)/gi, lang);
+  //alert(lang);
+  //alert(link);
+  location.replace(link);
+}
 </script>
 </body>
 </html>

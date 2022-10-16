@@ -64,24 +64,24 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
 
-    $routes->redirect(
-        '/en/login',
-        ['controller' => 'Messages', 'action' => 'index'],
-        ['lang' => 'en|zh|es','pass' => ['lang']]
-        // Or ['persist'=>['id']] for default routing where the
-        // view action expects $id as an argument.
-    );
+    // $routes->redirect(
+    //     '/',
+    //     ['controller' => 'Reports', 'action' => 'multi','en'],
+    //     ['lang' => 'en|zh|es','pass' => ['lang']]
+    //     // Or ['persist'=>['id']] for default routing where the
+    //     // view action expects $id as an argument.
+    // );
 
 
 
-    $routes->connect('/message/list', ['controller' => 'Messages', 'action' => 'getListMessage']);
-    $routes->connect('/message/create', ['controller' => 'Messages', 'action' => 'saveMessage'], ['_name' => 'create_message']);
+    // $routes->connect('/message/list', ['controller' => 'Messages', 'action' => 'getListMessage']);
+    // $routes->connect('/message/create', ['controller' => 'Messages', 'action' => 'saveMessage'], ['_name' => 'create_message']);
     //$routes->connect('/message/delete/:id', ['controller' => 'Messages', 'action' => 'deleteMessage'],['id' => '[0-9]+', 'pass' => 'id']);
-    $routes->connect(
-    '/message/delete/:id',
-    ['controller' => 'Messages', 'action' => 'deleteMessage'],
-    ['id' => '\d+', 'pass' => ['id']]
-);
+    // $routes->connect(
+    // '/message/delete/:id',
+    // ['controller' => 'Messages', 'action' => 'deleteMessage'],
+    // ['id' => '\d+', 'pass' => ['id']]
+//);
 //     $routes->connect(
 //         '/:slug',
 //         ['controller' => 'Articles', 'action' => 'view'],
@@ -161,13 +161,15 @@ Router::scope('/', function (RouteBuilder $routes) {
 //     ['lang' => 'en|zh|es', 'pass' => ['lang']]
 // );
 
+   
+
 //         $routes->connect(
 //     ':lang/:controller/:action',
 //     [],
 //     ['lang' => 'en|zh|es', 'pass' => ['lang']]
 // );
     // $routes->connect('/:lang/:controller', ['action' => 'index'], ['routeClass' => 'DashedRoute'],['lang' => 'en|zh|es','pass' => ['lang']]);
-    // $routes->connect('/:lang/:controller/:action', [], ['routeClass' => 'DashedRoute'],['lang' => 'en|zh|es']);
+   // $routes->connect('/:lang/:controller/:action', [], ['routeClass' => 'DashedRoute'],['lang' => 'en|zh|es', 'pass' => ['lang']]);
     // Router::connect('/:language/:controller/:action/*',
     // [
     //             'controller' => 'Articles',
@@ -193,7 +195,33 @@ Router::scope('/', function (RouteBuilder $routes) {
     // Router::connect('/:language/:controller/:action/*',
     //                    array(),
     //                    array('language' => '[a-z]{2}'));
+     $routes->connect(
+        '/:lang/:controller/:action',
+        [],
+        ['lang' => 'en|zh|ja', 'pass' => ['lang']]
+    );
 
+     $routes->connect(
+        '/:lang/:controller',
+        ['action' => 'index'],
+        ['lang' => 'en|zh|ja', 'pass' => ['lang']]
+    );
+
+
+
+
+   // $routes->connect('/en', ['controller' => 'Reports']);
+    $routes->connect(
+            ':lang/reports',
+            ['controller' => 'Reports','action' => 'multi'],
+            ['lang' => 'en|zh|ja', 'pass' => ['lang']]
+    );
+
+//         $routes->connect(
+//     ':lang/messages',
+//     ['controller' => 'Messages','action' => 'index'],
+//     ['lang' => 'en|zh|es', 'pass' => ['lang']]
+// );
     $routes->fallbacks(DashedRoute::class);
                       
     

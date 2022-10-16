@@ -6,3 +6,7 @@ msgstr "Edit Chinese"
 
 msgid "User activity"
 msgstr "用户活动"
+
+
+msgid "Popup Notification"
+msgstr "Popup Notification 用户活动"

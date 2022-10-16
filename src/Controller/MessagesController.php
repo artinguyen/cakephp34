@@ -24,6 +24,7 @@ class MessagesController extends AppController
 
     public function index()
     {
+        //die(I18n::locale());
         $result = $this->Messages->find('all');
         $this->set([
             'title' => 'Articles',
